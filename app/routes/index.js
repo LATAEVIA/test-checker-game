@@ -2,12 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.findAll('background');
+    return this.store.findAll('background', {refresh: true});
   },
 
   actions: {
-    refresh() {
-      this.transitionTo('index');
+    refreshRoute() {
+      this.refresh();
     }
   }
 });
