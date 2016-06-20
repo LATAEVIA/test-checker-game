@@ -7,14 +7,14 @@ export default Ember.Component.extend({
       background.save();
       // var params = 1;
       // this.sendAction('changeBackground',background, params);
-      this.transitionTo('index');
+      this.sendAction('refresh');
     },
     resetBackground(background) {
       background.color = 1;
       background.save();
       // var params = 0;
       // this.sendAction('resetBackground',background, params);
-      this.transitionTo('index');
+      this.sendAction('refresh');
     }
   }
 });
