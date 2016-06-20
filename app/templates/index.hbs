@@ -1,4 +1,2 @@
-{{#each model as |background|}}
-  {{test-background background=background}}
-  {{log background}}
-{{/each}}
+{{log model}}
+{{test-background background=model.firstObject}}
