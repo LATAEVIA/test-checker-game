@@ -1,26 +1,40 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend ({
-  background: Ember.computed('test' , function() {
+  // something: null,
 
-    console.log(this.get('test').val().color);
-    var temp = this.get('test').val().color;
+  didRender() {
+    firebase.database().ref('backgrounds/0').on('value', function(snapshot) {
+      var temp = snapshot.val().color;
 
-    //if test === 1, set color
-    if(temp === 1) {
-      Ember.$('#test').removeClass();
-      Ember.$('#test').addClass('background1');
-    } else { //else, set another color
-      Ember.$('#test').removeClass();
-      Ember.$('#test').addClass('background2');
-    }
-    this.sendAction('refreshRoute');
+      //if test === 1, set color
+      if(temp === 1) {
+        Ember.$('#test').removeClass();
+        Ember.$('#test').addClass('background1');
+        // this.set('something', '1');
+      } else { //else, set another color
+        Ember.$('#test').removeClass();
+        Ember.$('#test').addClass('background2');
+        // this.set('something', '0');
+      }
+    })
+  },
 
-    return temp;
-  }),
+  willDestroyElement() {
+    firebase.database().ref('backgrounds/0').off('value');
+  },
+
   actions: {
-    changeBackground() {
-      console.log("poop");
+    changeBackgroundto0() {
+      firebase.database().ref('backgrounds/0').set({
+        color: 0
+      });
+    },
+    changeBackgroundto1() {
+      firebase.database().ref('backgrounds/0').set({
+        color: 1
+      });
     }
   }
+
 });
